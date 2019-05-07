@@ -7,7 +7,7 @@ const path = require("path");
 //const postcssPresetEnv = require("postcss-preset-env");
 
 module.exports = {
-  entry: ["./src/main.js"],
+  entry: ["@babel/polyfill", "./src/main.js"],
   output: {
     publicPath: "/dist/",
     path: path.resolve(__dirname, "dist"),
@@ -30,6 +30,10 @@ module.exports = {
             plugins: ["@babel/plugin-syntax-dynamic-import"]
           }
         }
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.styl(us)?$/,

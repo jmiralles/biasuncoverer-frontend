@@ -1,18 +1,15 @@
 <template>
-  <div id="app">
-    <h1 class="title">{{ title }}</h1>
-    <div>
-      <router-link to="/firstPage">Go to FirstPage</router-link>
-      <router-link to="/secondPage">Go to SecondPage </router-link>
-    </div>
-    <router-view></router-view>
-  </div>
+   <div id="app">
+      <vue-layout></vue-layout>
+   </div>
 </template>
 
 <script>
+
 import { mapState } from 'vuex';
+
 export default {
-  computed: mapState(['title']),
+
 };
 </script>
 

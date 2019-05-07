@@ -24,9 +24,16 @@ module.exports = app => {
   app.use(hotMiddleware);
 
   app.use(async ctx => {
-    ctx.set("Content-Type", "text/html");
-    ctx.body = devMiddleware.fileSystem.readFileSync(
-      path.join(clientConfig.output.path, "index.html")
-    );
+    let htmlBuffer;
+    try {
+      htmlBuffer = devMiddleware.fileSystem.readFileSync(
+        path.join(clientConfig.output.path, "index.html")
+      );
+
+      ctx.set("Content-Type", "text/html");
+      ctx.body = htmlBuffer;
+    } catch (e) {
+      console.log(e);
+    }
   });
 };

@@ -1,0 +1,14 @@
+
+$primary:  #456789 ;
+$secondary: #111 !default;
+
+
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
+
+.bg-info {
+  background-color: $primary !important;
+  a {
+    color: #fff;
+  }
+}
