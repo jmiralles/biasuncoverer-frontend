@@ -4,9 +4,14 @@
       <b-table
        selectable
        select-mode="single"
-       @row-selected="rowSelected"
        hover 
        :items="analysis">
+       <template slot="action">
+        <b-button variant="primary" size="sm" @click="onClickViewResults" class="mr-1">
+          View Results
+        </b-button>
+       
+      </template>
        </b-table>
   </div>
 </template>
@@ -18,11 +23,13 @@ export default {
    mounted () {
     this.$store.dispatch('GET_ANALYSIS')
   },
-  computed: mapState([
-    'analysis'
-  ]),
+  computed:{
+    analysis() {
+      return this.$store.getters.analysis
+    }
+  },
   methods: {
-    rowSelected([item]) {
+    onClickViewResults() {
       this.$router.push('analysis/results');
       //this.$store.commit('SET_NEW_ANALYSIS_FILE', item.file_id);
     }

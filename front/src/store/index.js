@@ -1,8 +1,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
+import algoData from "./random_algorithm.js";
+import biasData from "./popularity_bias.js";
 
 Vue.use(Vuex);
+const maxDataItems = 100;
+
+function limitDataLength(data) {
+  return data.filter((_, index) => {
+    return index % ~~(data.length / maxDataItems) == 0;
+  });
+}
+
+const limitedAlgoData = limitDataLength(algoData.data);
+const limitedBiasData = limitDataLength(biasData.data);
 
 export default new Vuex.Store({
   state: {
@@ -11,17 +23,22 @@ export default new Vuex.Store({
     algorithms: [],
     analysis: [],
     analysis_result: {
-      labels: new Array(8),
+      labels: new Array(limitedAlgoData.length).fill(""),
       datasets: [
         {
-          label: "Data One",
+          fill: false,
+          showLine: true,
+          label: "Popularity Bias",
           backgroundColor: "#f87979",
-          data: [94, 24, 8, 4, 3, 2, 1, 0]
+          borderColor: "#f87979",
+          data: limitedAlgoData
         },
         {
-          label: "Data Two",
+          fill: false,
+          label: "Random Algorithm",
           backgroundColor: "#567890",
-          data: [100, 30, 10, 5, 4, 3, 2, 1]
+          borderColor: "#567890",
+          data: limitedBiasData
         }
       ]
     },
@@ -86,6 +103,12 @@ export default new Vuex.Store({
   getters: {
     newAnalysis: state => {
       return state.newAnalysis;
+    },
+    analysis: state => {
+      return state.analysis.map(a => {
+        a.action = "view result";
+        return a;
+      });
     }
   }
 });

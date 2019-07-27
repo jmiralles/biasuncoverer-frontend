@@ -13,14 +13,17 @@
         id="input-group-1"
         label="CSV File"
         label-for="input-1"
-        description="Upload a csv to your repository..."
+        description=""
       >
     
      <input type="file" id="file" ref="fileInput" />
 
     </b-form-group>
-
-    <b-button variant="primary" @click="upload">Upload</b-button>
+    <b-row>
+      <b-col  md="4" offset-md="5" >
+        <b-button variant="primary" @click="upload">Upload</b-button>
+      </b-col>
+    </b-row>
     
   </div>
 </template>
