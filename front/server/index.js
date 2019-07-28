@@ -7,6 +7,8 @@ const koaRequest = require("koa-http-request");
 const apiKey = "NjYxYjBiZjE0ZjE4MDY1ODhlMjkzMGNiZmJkYmE5NTQ0OWM0MmVkYQ==";
 const router = new koaRouter();
 const app = new Koa();
+const uploadFile = require("./utils/uploadFile.js");
+console.log("UP");
 
 app.use(
   koaRequest({
@@ -15,6 +17,16 @@ app.use(
     host: mockApiUrl
   })
 );
+
+router.post("/api/upload", async (ctx, next) => {
+  const file = ctx.request.files.file;
+  const { key, url } = await uploadFile({
+    fileName: file.name,
+    filePath: file.path,
+    fileType: file.type
+  });
+  ctx.body = { key, url };
+});
 
 router.get("/api/(.*)", async (ctx, next) => {
   try {
@@ -31,6 +43,8 @@ router.get("/api/(.*)", async (ctx, next) => {
 });
 
 router.post("/api/(.*)", async (ctx, next) => {
+  console.log("NODE POST");
+
   try {
     const endpoint = ctx.request.url;
     console.log("ctx.post", ctx);
@@ -46,7 +60,7 @@ router.post("/api/(.*)", async (ctx, next) => {
   }
 });
 
-app.use(bodyParser());
+app.use(bodyParser({ multipart: true }));
 app.use(router.routes());
 app.use(router.allowedMethods());
 

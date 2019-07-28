@@ -48,7 +48,7 @@
 
         // Send as multipart/form-data
         // Ensure the URL points to your server
-        const response = await fetch("/upload", {
+        const response = await fetch("/api/upload", {
           method: "POST",
           body: data,
         });
