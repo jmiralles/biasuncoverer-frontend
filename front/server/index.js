@@ -7,7 +7,8 @@ const koaRequest = require("koa-http-request");
 const apiKey = "NjYxYjBiZjE0ZjE4MDY1ODhlMjkzMGNiZmJkYmE5NTQ0OWM0MmVkYQ==";
 const router = new koaRouter();
 const app = new Koa();
-const uploadFile = require("./utils/uploadFile.js");
+//const uploadFile = require("./utils/uploadFile.js");
+const sendFile = require("./utils/sendFile.js");
 console.log("UP");
 
 app.use(
@@ -20,12 +21,14 @@ app.use(
 
 router.post("/api/upload", async (ctx, next) => {
   const file = ctx.request.files.file;
-  const { key, url } = await uploadFile({
+
+  const res = await sendFile({
     fileName: file.name,
     filePath: file.path,
     fileType: file.type
   });
-  ctx.body = { key, url };
+  
+  ctx.body = res;
 });
 
 router.get("/api/(.*)", async (ctx, next) => {
