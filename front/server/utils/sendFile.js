@@ -2,6 +2,7 @@
 const FormData = require('form-data');
 const { request } = require('http');
 const { createReadStream } = require('fs');
+const uuidv1 = require('uuid/v1');
 
 
 const sendFile = async ({ fileName, filePath, fileType }) => {
@@ -10,7 +11,7 @@ const sendFile = async ({ fileName, filePath, fileType }) => {
     
     const form = new FormData();
     form.append('file', readStream);
-    form.append('name', fileName || 'file_name');
+    form.append('name', fuuidv1());
 
     console.log("SENDFILE",form.getHeaders());
     
