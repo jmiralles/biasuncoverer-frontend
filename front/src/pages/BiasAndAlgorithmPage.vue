@@ -1,10 +1,15 @@
 <template>
   <div>
     <h2>Select Bias and Algorithm</h2>
-    <b-form>
+    <b-form class="analysis-form">
+      <b-form-group id="name-group" label="Analysis name:" label-for="name">
+        <b-form-input v-model="newAnalysis.name" placeholder="Enter a name for the analysis"></b-form-input>
+      </b-form-group>
+
       <b-form-group id="bias-group" label="Bias:" label-for="bias">
         <b-form-select
           id="bias"
+          class="select"
           v-model="newAnalysis.bias"
           :options="bias"
           required
@@ -14,12 +19,13 @@
       <b-form-group id="algorithm-group" label="Algorithm:" label-for="algorithm">
         <b-form-select
           id="algorithm"
+          class="select"
           v-model="newAnalysis.algorithm"
           :options="algorithms"
           required
         ></b-form-select>
       </b-form-group>
-      <b-button variant="primary" to="analysis">Analyze!</b-button>
+      <b-button variant="primary" @click="onClickAnalyze">Analyze!</b-button>
 
     </b-form>
   </div>
@@ -60,3 +66,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.analysis-form .select {
+  background: none;
+}
+
+</style>

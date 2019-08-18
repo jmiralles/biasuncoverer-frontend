@@ -11,19 +11,27 @@
     <h3>Upload File</h3>
      <b-form-group
         id="input-group-1"
-        label="CSV File"
+        label="Drag or upload a CSV File"
         label-for="input-1"
         description=""
       >
     
-     <input type="file" id="file" ref="fileInput" />
-
+     <b-form-file
+        v-model="file"
+        :state="Boolean(file)"
+        placeholder="Choose a file or drop it here..."
+        id="file"
+        ref="fileInput" />
+      <b-form-invalid-feedback :state="validation">
+        Your user ID must be 5-12 characters long.
+      </b-form-invalid-feedback>
     </b-form-group>
     <b-row>
       <b-col  md="4" offset-md="5" >
-        <b-button variant="primary" @click="upload">Upload</b-button>
+        <b-button variant="success" @click="upload">Upload</b-button>
       </b-col>
     </b-row>
+
     
   </div>
 </template>
@@ -35,9 +43,21 @@
         file: null
       }
     },
+    computed: {
+      validation() {
+          return this.dataset
+      }
+    },
     methods: {
       upload: async function(e) {
-        const fileToUpload = this.$refs.fileInput.files[0];
+        //const fileToUpload = this.$refs.fileInput.files[0];
+        const fileToUpload = this.file;
+
+        console.log(fileToUpload)
+        if (!fileToUpload) {
+           return;
+
+        }
 
         let data = new FormData();
         console.log("fileToUpload===>", fileToUpload);

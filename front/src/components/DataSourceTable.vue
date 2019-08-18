@@ -25,7 +25,7 @@ export default {
   ]),
   methods: {
     rowSelected([item]) {
-      this.$store.commit('SET_NEW_ANALYSIS_FILE', item.file_id);
+      this.$store.commit('SET_NEW_ANALYSIS_FILE', item && item.file_id || null);
     }
   }
 }

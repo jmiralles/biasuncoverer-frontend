@@ -43,8 +43,10 @@ export default new Vuex.Store({
       ]
     },
     newAnalysis: {
+      name: null,
       file: null,
-      bias: null
+      bias: null,
+      algorithm: null
     }
   },
   mutations: {
