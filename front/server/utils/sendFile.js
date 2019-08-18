@@ -5,32 +5,36 @@ const { createReadStream } = require('fs');
 const uuidv1 = require('uuid/v1');
 
 
-const sendFile = async ({ fileName, filePath, fileType }) => {
+const sendFile = async ({ filePath, apiKey}) => {
   return new Promise((resolve, reject) => {
     const readStream = createReadStream(filePath);
     
     const form = new FormData();
-    form.append('file', readStream);
-    form.append('name', fuuidv1());
+    form.append('fileId', readStream);
+    form.append('name', uuidv1());
 
-    console.log("SENDFILE",form.getHeaders());
-    
+    const headers = Object.assign({
+      apiKey
+    }, form.getHeaders());
+      
     const req = request(
         {
             host: 'localhost',
             port: '3002',
             path: '/api/file/',
             method: 'POST',
-            headers: form.getHeaders(),
+            body: form,
+            headers
         },
         response => {
-            console.log(response.statusCode); // 200
+            //console.log(response); // 200
         }
     );
     
-    console.log(req);
+     console.log("REQUEST=====>>>>", req);
      form.pipe(req)
      req.on('response', (res) => {
+        console.log("STATUS", res.statusCode)
         resolve(res.statusCode)
       });
 });

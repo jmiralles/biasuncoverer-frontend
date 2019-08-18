@@ -31,8 +31,7 @@
         <b-button variant="success" @click="upload">Upload</b-button>
       </b-col>
     </b-row>
-
-    
+  
   </div>
 </template>
 

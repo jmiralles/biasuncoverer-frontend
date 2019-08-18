@@ -7,7 +7,6 @@ const koaRequest = require("koa-http-request");
 const apiKey = "NjYxYjBiZjE0ZjE4MDY1ODhlMjkzMGNiZmJkYmE5NTQ0OWM0MmVkYQ==";
 const router = new koaRouter();
 const app = new Koa();
-const uuidv1 = require('uuid/v1');
 const sendFile = require("./utils/sendFile.js");
 console.log("UP");
 
@@ -27,7 +26,7 @@ router.post("/api/upload", async (ctx, next) => {
     fileName: file.name,
     filePath: file.path,
     fileType: file.type,
-    fileId: uuidv1()
+    apiKey
   });
   
   ctx.body = res;
@@ -38,7 +37,7 @@ router.get("/api/(.*)", async (ctx, next) => {
     const endpoint = ctx.request.url;
     let data = await ctx.get(endpoint, null, {
       "User-Agent": "koa-http-request",
-      apiKey: apiKey
+      apiKey
     });
     ctx.body = data;
   } catch (e) {
@@ -50,15 +49,17 @@ router.get("/api/(.*)", async (ctx, next) => {
 router.post("/api/(.*)", async (ctx, next) => {
   try {
     const endpoint = ctx.request.url;
-    console.log("ctx.post", ctx);
+    console.log("ctx.body ===>", ctx);
     let data = await ctx.post(endpoint, ctx.request.body, {
       "User-Agent": "koa-http-request",
       "Content-Type": "application/json",
       apiKey
     });
+
+    console.log("RESPONSE DATA", data)
     ctx.body = data;
   } catch (e) {
-    console.log("ERROR:", e);
+    console.log("ERROR POST:", e);
     ctx.throw(404);
   }
 });
