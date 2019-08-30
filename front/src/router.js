@@ -30,7 +30,7 @@ export default new Router({
       component: AnalysisPage
     },
     {
-      path: "/analysis/results",
+      path: "/analysis/results/:id",
       component: AnalysisResultsPage
     },
     {

@@ -1,14 +1,6 @@
 <template>
-  <div>
-    <!-- Styled -->
-   <!-- <b-form-file
-      multiple
-      v-model="file"
-      :state="Boolean(file)"
-      placeholder="Choose a csv file..."
-      drop-placeholder="Drop file here..."
-    ></b-form-file> -->
-    <h3>Upload File</h3>
+  <div class="section">
+    <h3>1. Upload File</h3>
      <b-form-group
         id="input-group-1"
         label="Drag or upload a CSV File"
@@ -21,14 +13,19 @@
         :state="Boolean(file)"
         placeholder="Choose a file or drop it here..."
         id="file"
+        :disabled="Boolean(newAnalysis.file)"
         ref="fileInput" />
-      <b-form-invalid-feedback :state="validation">
+      <b-form-invalid-feedback :state="validation">ººº
         Your user ID must be 5-12 characters long.
       </b-form-invalid-feedback>
     </b-form-group>
     <b-row>
-      <b-col  md="4" offset-md="5" >
-        <b-button variant="success" @click="upload">Upload</b-button>
+      <b-col  md="12" offset-md="10" >
+        <b-button 
+          variant="success"
+          @click="upload"
+          :disabled="Boolean(newAnalysis.file)"
+          >Upload</b-button>
       </b-col>
     </b-row>
   
@@ -36,6 +33,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
   export default {
     data() {
       return {
@@ -45,6 +44,9 @@
     computed: {
       validation() {
           return this.dataset
+      },
+      newAnalysis() {
+        return this.$store.getters.newAnalysis
       }
     },
     methods: {
@@ -58,22 +60,31 @@
 
         }
 
-        let data = new FormData();
-        console.log("fileToUpload===>", fileToUpload);
+        let bodyData = new FormData();
 
-        data.append("file", fileToUpload);
+        bodyData.append("file", fileToUpload);
 
-        console.log("DATA===>", data);
+        // TODO: TEMP solution
+        const bodyDataTemp = {
+          "data": {
+            "type": "file",
+            "attributes": {
+              "file_id": 2,
+              "file_name": "name"
+            }
+          }
+        };
 
-        // Send as multipart/form-data
-        // Ensure the URL points to your server
-        const response = await fetch("/api/upload", {
+        const response = await fetch("/api/file", {
           method: "POST",
-          body: data,
+          body: JSON.stringify(bodyData)
         });
 
-        const { url } = await response.json();
-    
+        const { data } = await response.json();
+        
+
+        this.$store.commit('SET_NEW_ANALYSIS_FILE', data.id || null);
+
       }
     }
   }
