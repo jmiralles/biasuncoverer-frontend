@@ -7,6 +7,7 @@ import PageNotFoundPage from "./pages/PageNotFoundPage.vue";
 import BiasAndAlgorithmPage from "./pages/BiasAndAlgorithmPage.vue";
 import AnalysisPage from "./pages/AnalysisPage.vue";
 import AnalysisResultsPage from "./pages/AnalysisResultsPage.vue";
+import FormResult from "./pages/FormResult.vue";
 
 const AboutPage = () => import("./pages/AboutPage.vue");
 const HomePage = () => import("./pages/HomePage.vue");
@@ -22,16 +23,16 @@ export default new Router({
       component: HomePage
     },
     {
-      path: "/bias-algorithm",
-      component: BiasAndAlgorithmPage
-    },
-    {
       path: "/analysis",
       component: AnalysisPage
     },
     {
       path: "/analysis/results/:id",
       component: AnalysisResultsPage
+    },
+    {
+      path: "/form/:status",
+      component: FormResult
     },
     {
       path: "/about",

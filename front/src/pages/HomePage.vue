@@ -1,22 +1,33 @@
 <template>
   <div>
     {{JSON.stringify(newAnalysis)}}
+
     <h2>New Analysis</h2>
-    <b-container>
-       <b-row>
-        <!--  <b-col md="7">
-         <data-source-table /> 
-          </b-col> -->
-        <b-col md="12">
-          <data-source-uploader />
-        </b-col>
-      </b-row>
-       <b-row v-show="Boolean(newAnalysis.file) || true">
-         <b-col md="12">
-          <BiasAndAlgorithmPage />
-         </b-col>
-       </b-row>
-    </b-container>
+
+    <div v-if="newAnalysis.status === 'FORM'">
+      <b-container>
+        <b-row>
+          <b-col md="12">
+            <data-source-uploader />
+          </b-col>
+        </b-row>
+        <b-row v-show="Boolean(newAnalysis.file)">
+          <b-col md="12">
+            <BiasAndAlgorithmPage />
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <div v-else-if="newAnalysis.status === 'SENDING'">
+          <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+    </div>
+    <div v-else-if="newAnalysis.status === 'OK'">
+          
+    </div>
+    <div v-else>
+        
+    </div>
+
   </div>
 </template>
 

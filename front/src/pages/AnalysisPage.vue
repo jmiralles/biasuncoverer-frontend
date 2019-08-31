@@ -67,14 +67,17 @@ export default {
   },
   methods: {
     getBiasName(id) {
-      return this.bias.find(bias => bias.attributes.biaId === id).attributes.biaName
+      const bias = this.bias.find(bias => bias.attributes.biaId === id);
+
+      return bias && bias.attributes.biaName || "unknown Bias"
     },
     getAlgoName(id) {
-      return this.algorithms.find(algo => algo.attributes.algorithmId === id).attributes.algorithmName
+      const algorithm = this.algorithms.find(algo => algo.attributes.algorithmId === id);
+      return algorithm && algorithm.attributes.algorithmName || "unknown Algorithm"
     },
     onClickViewResults({attributes}) {
       console.log(attributes.analysisId);
-      this.$router.push('analysis/results');
+      this.$router.push('analysis/results/' + attributes.analysisId);
       //this.$store.commit('SET_NEW_ANALYSIS_FILE', item.file_id);
     }
   }

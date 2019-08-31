@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{algorithmsLoaded}}
-    {{algorithmsLoaded}}
     <h3>2. Select Name, Bias and Algorithm</h3>
     <b-form class="analysis-form">
       <b-form-group id="name-group" label="Analysis name:" label-for="name">
@@ -49,9 +47,8 @@
         </div>
       </b-form-group>
 
-
       <b-row>
-        <b-col md="12" offset-md="10" >
+        <b-col md="12" offset-md="5" >
           <b-button variant="warning" @click="onClickCancel">Cancel</b-button>
           <b-button variant="success" @click="onClickAnalyze">Analyze!</b-button>
         </b-col>
@@ -71,7 +68,13 @@ export default {
       this.$store.dispatch('ANALYZE');
     },
     onClickCancel() {
-      this.newAnalysis = {};      
+      this.newAnalysis = {
+        name: null,
+        file: null,
+        bias: null,
+        algorithm: null,
+        status: "FORM"
+      }
     },
     validation() {
       return this.newAnalysis.name && this.newAnalysis.bias && this.newAnalysis.algorithm;
