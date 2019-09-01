@@ -9,7 +9,7 @@
             <data-source-uploader />
           </b-col>
         </b-row>
-        <b-row v-show="Boolean(true || newAnalysis.file)">
+        <b-row v-show="Boolean(newAnalysis.file)">
           <b-col md="12">
             <BiasAndAlgorithmForm />
           </b-col>

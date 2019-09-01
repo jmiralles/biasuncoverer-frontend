@@ -1,10 +1,28 @@
 # biasUncovered
 
-## To run in dev
+## To show a Demo
+
+Clone the repository
+
+```cd front```
+
+```yarn install```
+
+```npm run dev```
+
+It should run in http://localhost:3000
+
+The api is set to localhost:80
+
+There is a config file with the apiurl and the apiKey, change it if needed.
+
+```config.json```
+
+## To run in dev (DOCKER)
 
 docker-compose -f docker-compose.dev.yml up
 
-## To run in prod
+## To run in prod (DOCKER)
 
 docker-compose up
 
