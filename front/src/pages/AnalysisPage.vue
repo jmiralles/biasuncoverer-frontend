@@ -68,17 +68,14 @@ export default {
   methods: {
     getBiasName(id) {
       const bias = this.bias.find(bias => bias.attributes.biaId === id);
-
-      return bias && bias.attributes.biaName || "unknown Bias"
+      return bias && bias.attributes.biaName || "Popularity"
     },
     getAlgoName(id) {
       const algorithm = this.algorithms.find(algo => algo.attributes.algorithmId === id);
-      return algorithm && algorithm.attributes.algorithmName || "unknown Algorithm"
+      return algorithm && algorithm.attributes.algorithmName || "Random"
     },
     onClickViewResults({attributes}) {
-      console.log(attributes.analysisId);
       this.$router.push('analysis/results/' + attributes.analysisId);
-      //this.$store.commit('SET_NEW_ANALYSIS_FILE', item.file_id);
     }
   }
 }

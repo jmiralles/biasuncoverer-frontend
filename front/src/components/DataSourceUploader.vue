@@ -20,12 +20,12 @@
       </b-form-invalid-feedback>
     </b-form-group>
     <b-row>
-      <b-col  md="12" offset-md="10" >
+      <b-col md="12" offset-md="12" >
         <b-button 
           variant="success"
           @click="upload"
           :disabled="Boolean(newAnalysis.file)"
-          >Upload</b-button>
+          >Upload File</b-button>
       </b-col>
     </b-row>
   
@@ -73,7 +73,7 @@ import { mapGetters } from 'vuex';
         
 
         this.$store.commit('SET_NEW_ANALYSIS_FILE', data.id || null);
-  
+
       }
     }
   }

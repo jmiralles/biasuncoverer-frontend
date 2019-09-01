@@ -1,8 +1,6 @@
 <template>
   <div>
-    {{JSON.stringify(newAnalysis)}}
-
-    <h2>New Analysis</h2>
+    <h3>New Analysis</h3>
 
     <div v-if="newAnalysis.status === 'FORM'">
       <b-container>
@@ -11,35 +9,32 @@
             <data-source-uploader />
           </b-col>
         </b-row>
-        <b-row v-show="Boolean(newAnalysis.file)">
+        <b-row v-show="Boolean(true || newAnalysis.file)">
           <b-col md="12">
-            <BiasAndAlgorithmPage />
+            <BiasAndAlgorithmForm />
           </b-col>
         </b-row>
       </b-container>
     </div>
     <div v-else-if="newAnalysis.status === 'SENDING'">
+      <b-jumbotron align="center">
           <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
-    </div>
-    <div v-else-if="newAnalysis.status === 'OK'">
-          
-    </div>
-    <div v-else>
-        
-    </div>
-
+          <p>Sending Analysis</p>
+      </b-jumbotron>
+   </div>
+    
   </div>
 </template>
 
 <script>
 import DataSourceTable from "../components/DataSourceTable.vue";
 import DataSourceUploader from "../components/DataSourceUploader.vue";
-import BiasAndAlgorithmPage from "../pages/BiasAndAlgorithmPage.vue";
+import BiasAndAlgorithmForm from "../components/BiasAndAlgorithmForm.vue";
 
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {DataSourceTable, DataSourceUploader, BiasAndAlgorithmPage},
+  components: {DataSourceTable, DataSourceUploader, BiasAndAlgorithmForm},
   computed: {
     newAnalysis() {
       return this.$store.getters.newAnalysis

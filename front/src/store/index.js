@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import Axios from "axios";
 import algoData from "./random_algorithm.js";
 import biasData from "./popularity_bias.js";
+import router from "../router";
 
 Vue.use(Vuex);
 const maxDataItems = 100;
@@ -27,26 +28,6 @@ export default new Vuex.Store({
     algorithmBiasGraphData: [],
     dataBiasGraphData: [],
     graphLabels: [],
-    analysis_result: {
-      labels: [],
-      datasets: [
-        {
-          fill: false,
-          showLine: true,
-          label: "Popularity Bias",
-          backgroundColor: "#f87979",
-          borderColor: "#f87979",
-          data: []
-        },
-        {
-          fill: false,
-          label: "Random Algorithm",
-          backgroundColor: "#567890",
-          borderColor: "#567890",
-          data: []
-        }
-      ]
-    },
     newAnalysis: {
       name: null,
       file: null,
@@ -131,7 +112,8 @@ export default new Vuex.Store({
         name: null,
         file: null,
         bias: null,
-        algorithm: null
+        algorithm: null,
+        status: "FORM"
       });
     },
     ANALYZE: async (context, payload) => {
@@ -148,17 +130,23 @@ export default new Vuex.Store({
             }
         }
       });
+      context.dispatch("RESET_ANALYSIS");
+      
       if (result.status === 201) {
-        context.commit("SET_NEW_ANALYSIS_STATUS", "OK")
+        router.push('/form/ok');
       } else {
-        context.commit("SET_NEW_ANALYSIS_STATUS", "KO")
+        router.push('/form/ko');
       }
-       
+      
     }
   },
   getters: {
     newAnalysis: state => {
       return state.newAnalysis;
+    },
+    analysisName: state => (id) => {
+      const analysis = state.analysis.find(a => a.id == id);
+      return analysis && analysis.attributes.analysisName || '';
     }
   }
 });

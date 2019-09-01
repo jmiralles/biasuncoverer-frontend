@@ -1,15 +1,17 @@
 <template>
   <div>
     <h3><router-link to="/analysis">Back to analysis</router-link></h3>
-    <p>Analysis Results of result with id: {{this.$route.params.id}}</p>
     <div v-if="isAllDataLoaded()">
+          <p>Analysis Results of result with name: <strong>{{analysisName}}</strong></p>
+
           <line-chart :chartdata="analysis_result" :options="chartOptions"></line-chart>
     </div>
   </div>
+
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import LineChart from '../components/LineChart.vue';
 
 export default {
@@ -24,14 +26,14 @@ export default {
         {
           fill: false,
           showLine: true,
-          label: "Popularity Bias",
+          label: "Dataset",
           backgroundColor: "#f87979",
           borderColor: "#f87979",
           data: []
         },
         {
           fill: false,
-          label: "Random Algorithm",
+          label: "Recommendations",
           backgroundColor: "#567890",
           borderColor: "#567890",
           data: []
@@ -51,8 +53,8 @@ export default {
     } 
   },
   mounted() {
-    console.log("MOUNTED!!")
     this.$store.dispatch('CLEAR_ANALYSIS_RESULTS');
+    this.$store.dispatch('GET_ANALYSIS');
 
     const { id } = this.$route.params;
     this.$store.dispatch('GET_RESULT_BY_ID', id);
@@ -60,16 +62,21 @@ export default {
   methods: {
     isAllDataLoaded() {
       return this.algorithmBiasGraphData.length > 0
+            && this.analysis.length > 0
             && this.graphLabels.length > 0
             && this.dataBiasGraphData.length > 0;
     }
   },
   components: {LineChart},
   computed: {
+    analysisName() {
+      return this.$store.getters.analysisName(this.$route.params.id);
+    },
     ...mapState([
       'algorithmBiasGraphData',
       'dataBiasGraphData',
-      'graphLabels'
+      'graphLabels',
+      'analysis'
     ])
   }
 }

@@ -48,7 +48,7 @@
       </b-form-group>
 
       <b-row>
-        <b-col md="12" offset-md="5" >
+        <b-col md="12" offset-md="12" >
           <b-button variant="warning" @click="onClickCancel">Cancel</b-button>
           <b-button variant="success" @click="onClickAnalyze">Analyze!</b-button>
         </b-col>
@@ -95,12 +95,22 @@ export default {
     },
     bias: {
        get () {
-          return this.$store.state.bias.map(a => a.name = a.attributes.biaName)
+          return this.$store.state.bias.map(bias => {
+              return {
+                value: bias.id,
+                text: bias.attributes.biaName
+              }
+            })
         }
      },
     algorithms: {
        get () {
-          return this.$store.state.algorithms.map(a => a.name = a.attributes.algorithmName)
+          return this.$store.state.algorithms.map(algo => {
+            return {
+                value: algo.id,
+                text: algo.attributes.algorithmName
+            }
+          })
         }
      },
      ...mapState([

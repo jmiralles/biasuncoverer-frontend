@@ -4,7 +4,6 @@ import Router from "vue-router";
 Vue.use(Router);
 
 import PageNotFoundPage from "./pages/PageNotFoundPage.vue";
-import BiasAndAlgorithmPage from "./pages/BiasAndAlgorithmPage.vue";
 import AnalysisPage from "./pages/AnalysisPage.vue";
 import AnalysisResultsPage from "./pages/AnalysisResultsPage.vue";
 import FormResult from "./pages/FormResult.vue";
@@ -31,7 +30,7 @@ export default new Router({
       component: AnalysisResultsPage
     },
     {
-      path: "/form/:status",
+      path: "/form/:result",
       component: FormResult
     },
     {
