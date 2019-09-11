@@ -1,4 +1,4 @@
-# biasUncovered
+# biasUncoverer
 
 ## To show a Demo
 
