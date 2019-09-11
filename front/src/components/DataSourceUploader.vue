@@ -70,9 +70,8 @@ import { mapGetters } from 'vuex';
         });
 
         const { data } = await response.json();
-        
 
-        this.$store.commit('SET_NEW_ANALYSIS_FILE', data.id || null);
+        this.$store.commit('SET_NEW_ANALYSIS_FILE', data[0].attributes.file_id || null);
 
       }
     }

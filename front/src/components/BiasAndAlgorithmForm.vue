@@ -97,8 +97,8 @@ export default {
        get () {
           return this.$store.state.bias.map(bias => {
               return {
-                value: bias.id,
-                text: bias.attributes.biaName
+                value: bias.attributes.biasId,
+                text: bias.attributes.biasName
               }
             })
         }
@@ -107,7 +107,7 @@ export default {
        get () {
           return this.$store.state.algorithms.map(algo => {
             return {
-                value: algo.id,
+                value: algo.attributes.algorithmId,
                 text: algo.attributes.algorithmName
             }
           })

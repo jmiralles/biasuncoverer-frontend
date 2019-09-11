@@ -10,7 +10,7 @@
          <b-button v-if="row.item.attributes.enableResult" variant="primary" size="sm" @click="onClickViewResults(row.item)" class="mr-1">
             View Results
           </b-button>
-        
+
         </template>
         </b-table>
   </div>
@@ -23,7 +23,6 @@ export default {
   data() {
     return {
         fields: {
-          id: {},
           'attributes.analysisName': {
             label: 'Name'
           },
@@ -52,7 +51,7 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('GET_ANALYSIS')
+    this.$store.dispatch('GET_ANALYSIS');
     !this.biasLoaded && this.$store.dispatch('GET_BIAS');
     !this.algorithmsLoaded && this.$store.dispatch('GET_ALGORITHMS');
   },
@@ -67,8 +66,8 @@ export default {
   },
   methods: {
     getBiasName(id) {
-      const bias = this.bias.find(bias => bias.attributes.biaId === id);
-      return bias && bias.attributes.biaName || "Popularity"
+      const bias = this.bias.find(bias => bias.attributes.biasId === id);
+      return bias && bias.attributes.biasName || "Popularity"
     },
     getAlgoName(id) {
       const algorithm = this.algorithms.find(algo => algo.attributes.algorithmId === id);

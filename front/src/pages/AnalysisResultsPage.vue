@@ -50,7 +50,7 @@ export default {
     },
     graphLabels(newValue) {
         this.analysis_result.labels = newValue;
-    } 
+    }
   },
   mounted() {
     this.$store.dispatch('CLEAR_ANALYSIS_RESULTS');

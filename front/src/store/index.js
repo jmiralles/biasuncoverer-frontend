@@ -105,7 +105,7 @@ export default new Vuex.Store({
     },
     GET_RESULT_BY_ID: async (context, payload) => {
       let { data } = await Axios.get("/api/results/" + payload);
-      context.commit("SET_RESULT", data.data.attributes);
+      context.commit("SET_RESULT", data.data[0].attributes);
     },
     RESET_ANALYSIS: async (context) => {
       context.commit("SET_NEW_ANALYSIS", {
@@ -132,7 +132,7 @@ export default new Vuex.Store({
       });
       context.dispatch("RESET_ANALYSIS");
       
-      if (result.status === 201) {
+      if (result.status === 200) {
         router.push('/form/ok');
       } else {
         router.push('/form/ko');
@@ -145,7 +145,7 @@ export default new Vuex.Store({
       return state.newAnalysis;
     },
     analysisName: state => (id) => {
-      const analysis = state.analysis.find(a => a.id == id);
+      const analysis = state.analysis.find(a => a.attributes.analysisId == id);
       return analysis && analysis.attributes.analysisName || '';
     }
   }
