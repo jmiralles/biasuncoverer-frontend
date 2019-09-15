@@ -8,35 +8,35 @@ const koaRequest = require("koa-http-request");
 const router = new koaRouter();
 const app = new Koa();
 const proxy = require('koa-proxy');
-const { apiKey, apiUrl } = require('../config.json')
+const {apiKey, apiUrl} = require('../config.json');
 
 app.use(
-  koaRequest({
-    timeout: 5000,
-    host: apiUrl
-  })
+    koaRequest({
+        timeout: 5000,
+        host: apiUrl
+    })
 );
 
 app.use(async (ctx, next) => {
-  ctx.req.headers = Object.assign({},
-     ctx.req.headers,
-     {'Authorization': apiKey});
-  await next();
+    ctx.req.headers = Object.assign({},
+        ctx.req.headers,
+        {'Authorization': apiKey});
+    await next();
 });
 
 app.use(proxy({
-  match: /^\/api\/(.*)/,
-  host: apiUrl
-}))
+    match: /^\/api\/(.*)/,
+    host: apiUrl
+}));
 
-app.use(bodyParser({ multipart: true }));
+app.use(bodyParser({multipart: true}));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 if (isProd) {
-  require("./utils/setup-prod.js")(app);
+    require("./utils/setup-prod.js")(app);
 } else {
-  require("./utils/setup-dev.js")(app);
+    require("./utils/setup-dev.js")(app);
 }
 
 app.listen(process.env.PORT || 3000);

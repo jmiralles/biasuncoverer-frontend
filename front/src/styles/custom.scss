@@ -1,5 +1,4 @@
-
-$primary:  #456789 ;
+$primary: #456789;
 $secondary: #111 !default;
 
 
@@ -8,6 +7,7 @@ $secondary: #111 !default;
 
 .bg-info {
   background-color: $primary !important;
+
   a {
     color: #fff;
   }
