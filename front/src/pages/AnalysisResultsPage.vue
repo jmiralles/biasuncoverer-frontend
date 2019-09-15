@@ -20,7 +20,21 @@
         data: () => ({
             chartOptions: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Proportion of items'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of users'
+                        }
+                    }],
+                }
             },
             analysis_result: {
                 labels: [],
