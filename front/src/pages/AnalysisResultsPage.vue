@@ -25,7 +25,7 @@
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Proportion of items'
+                            labelString: 'Proportion of items (logarithmic)'
                         }
                     }],
                     xAxes: [{
@@ -42,16 +42,17 @@
                     {
                         fill: false,
                         showLine: true,
-                        label: "Dataset",
-                        backgroundColor: "#f87979",
-                        borderColor: "#f87979",
+                        label: "Recommendations",
+                        backgroundColor: "#567890",
+                        borderColor: "#567890",
                         data: []
                     },
                     {
                         fill: false,
-                        label: "Recommendations",
-                        backgroundColor: "#567890",
-                        borderColor: "#567890",
+                        showLine: true,
+                        label: "Dataset",
+                        backgroundColor: "#f87979",
+                        borderColor: "#f87979",
                         data: []
                     }
                 ]
