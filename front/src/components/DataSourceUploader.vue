@@ -7,6 +7,7 @@
                 label="Drag or upload a CSV File"
                 label-for="input-1"
         >
+            The CSV file must have at least 3 columns labelled <i>item</i>, <i>user</i> and <i>rating</i>
 
             <b-form-file
                     :disabled="Boolean(newAnalysis.file)"
