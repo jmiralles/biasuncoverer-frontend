@@ -4,7 +4,7 @@
             <router-link to="/analysis">Back to List of Analysis</router-link>
         </h3>
         <div v-if="isAllDataLoaded()">
-            <p>Result of analysis: <strong>{{analysisName}}</strong></p>
+            <p>Result of analysis <strong>{{analysisName}}</strong></p>
 
             <line-chart :chartdata="analysis_result" :options="chartOptions"></line-chart>
         </div>
@@ -25,13 +25,13 @@
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Proportion of items (logarithmic)'
+                            labelString: 'Proportion of items (log %)'
                         }
                     }],
                     xAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Number of users'
+                            labelString: 'Number of users (2^n)'
                         }
                     }],
                 }
