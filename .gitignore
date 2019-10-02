@@ -1,0 +1,7 @@
+front/node_modules
+front/coverage/
+front/dist
+front/index.html
+front/.vscode
+.DS_Store
+front/yarn-error.log

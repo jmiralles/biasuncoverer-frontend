@@ -1,5 +1,5 @@
 node_modules
-front/coverage
+coverage/
 dist
 index.html
 .vscode
