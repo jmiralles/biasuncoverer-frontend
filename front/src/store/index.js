@@ -65,10 +65,10 @@ export default new Vuex.Store({
     SET_NEW_ANALYSIS_FILE: (state, payload) => {
       state.newAnalysis.file = payload;
     },
-    SET_RESULT: (state, {algorithmBiasGraph, dataBiasGraph}) => {
+    SET_RESULT: (state, { algorithmBiasGraph, dataBiasGraph }) => {
       const algorithmBiasGraphData = algorithmBiasGraph.map(point => point.y);
       const dataBiasGraphData = dataBiasGraph.map(point => point.y);
-  
+
       state.algorithmBiasGraphData = algorithmBiasGraphData;
       state.dataBiasGraphData = dataBiasGraphData;
       state.graphLabels = new Array(dataBiasGraphData.length).fill("");
@@ -106,14 +106,10 @@ export default new Vuex.Store({
     GET_ANALYSIS: async (context, payload) => {
       let { data } = await Axios.get("/api/analysis");
       context.commit("SET_ANALYSIS", data);
-      context.commit("ANALYSIS_LIST_STATUS", "DONE");
     },
     GET_RESULT_BY_ID: async (context, payload) => {
       let { data } = await Axios.get("/api/results/" + payload);
-      context.commit("SET_RESULT", data.data.attributes);
-    },
-    LOADING_ANALYSIS: async (context, payload) => {
-      context.commit("ANALYSIS_LIST_STATUS", "LOADING");
+      context.commit("SET_RESULT", data.data[0].attributes);
     },
     RESET_ANALYSIS: async (context) => {
       context.commit("SET_NEW_ANALYSIS", {
@@ -125,27 +121,27 @@ export default new Vuex.Store({
       });
     },
     ANALYZE: async (context, payload) => {
-      context.commit("SET_NEW_ANALYSIS_STATUS", "SENDING")
+      context.commit("SET_NEW_ANALYSIS_STATUS", "SENDING");
       const { name, file, bias, algorithm } = context.state.newAnalysis;
       let result = await Axios.post("/api/analysis", {
         data: {
-            type: "analysis",
-            attributes: {
-              file_id: file,
-              bias_id: bias,
-              algorithm_id: algorithm,
-              analysis_name: name
-            }
+          type: "analysis",
+          attributes: {
+            file_id: file,
+            bias_id: bias,
+            algorithm_id: algorithm,
+            analysis_name: name
+          }
         }
       });
       context.dispatch("RESET_ANALYSIS");
-      
-      if (result.status === 201) {
+
+      if (result.status === 200) {
         router.push('/form/ok');
       } else {
         router.push('/form/ko');
       }
-      
+
     }
   },
   getters: {
@@ -153,7 +149,7 @@ export default new Vuex.Store({
       return state.newAnalysis;
     },
     analysisName: state => (id) => {
-      const analysis = state.analysis.find(a => a.id == id);
+      const analysis = state.analysis.find(a => a.attributes.analysisId == id);
       return analysis && analysis.attributes.analysisName || '';
     }
   }
