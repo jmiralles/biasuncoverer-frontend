@@ -6,6 +6,12 @@
 
           <line-chart :chartdata="analysis_result" :options="chartOptions"></line-chart>
     </div>
+    <div v-else>
+        <b-jumbotron align="center">
+            <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+            <p>Loading Results</p>
+          </b-jumbotron>
+      </div>
   </div>
 
 </template>

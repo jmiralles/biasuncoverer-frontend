@@ -1,6 +1,7 @@
 <template>
   <div>
       <h3>Analysis List</h3>
+      <div v-if="isAllDataLoaded()">
         <b-table
         select-mode="single"
         striped
@@ -13,6 +14,14 @@
         
         </template>
         </b-table>
+      </div>
+      <div v-else>
+          <b-jumbotron align="center">
+            <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+            <p>Loading Analysis List</p>
+          </b-jumbotron>
+      </div>
+
   </div>
 </template>
 
@@ -52,7 +61,8 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('GET_ANALYSIS')
+    this.$store.dispatch('LOADING_ANALYSIS');
+    this.$store.dispatch('GET_ANALYSIS');
     !this.biasLoaded && this.$store.dispatch('GET_BIAS');
     !this.algorithmsLoaded && this.$store.dispatch('GET_ALGORITHMS');
   },
@@ -62,10 +72,16 @@ export default {
       'biasLoaded',
       'analysis',
       'algorithms',
+      'analysisListStatus',
       'bias'
      ])
   },
   methods: {
+    isAllDataLoaded() {
+      return this.analysisListStatus === "DONE" 
+             && this.bias.length > 0
+             && this.algorithms.length > 0;
+    },
     getBiasName(id) {
       const bias = this.bias.find(bias => bias.attributes.biaId === id);
       return bias && bias.attributes.biaName || "Popularity"

@@ -1,4 +1,5 @@
 node_modules
+front/coverage
 dist
 index.html
 .vscode

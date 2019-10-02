@@ -7,9 +7,9 @@
        @row-selected="rowSelected"
        hover 
        :items="files"
-       v-if="files">
-       </b-table>
-      <div v-else>Please, upload a file first</div>
+       v-if="files.length > 0">
+       </b-table> 
+      <div id="message" v-else>Please, upload a file first</div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
 import { mapState } from 'vuex'
 
 export default {
-   mounted () {
+  mounted () {
     this.$store.dispatch('GET_FILES')
   },
   computed: mapState([
@@ -32,7 +32,6 @@ export default {
 </script>
 
 <style>
-
 </style>
 
 

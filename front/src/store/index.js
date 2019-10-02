@@ -24,6 +24,7 @@ export default new Vuex.Store({
     biasLoaded: false,
     algorithms: [],
     algorithmsLoaded: false,
+    analysisListStatus: "DONE",
     analysis: [],
     algorithmBiasGraphData: [],
     dataBiasGraphData: [],
@@ -79,6 +80,9 @@ export default new Vuex.Store({
       state.algorithmBiasGraphData = [];
       state.dataBiasGraphData = [];
       state.graphLabels = [];
+    },
+    ANALYSIS_LIST_STATUS: (state, payload) => {
+      state.analysisListStatus = payload;
     }
   },
   actions: {
@@ -102,10 +106,14 @@ export default new Vuex.Store({
     GET_ANALYSIS: async (context, payload) => {
       let { data } = await Axios.get("/api/analysis");
       context.commit("SET_ANALYSIS", data);
+      context.commit("ANALYSIS_LIST_STATUS", "DONE");
     },
     GET_RESULT_BY_ID: async (context, payload) => {
       let { data } = await Axios.get("/api/results/" + payload);
       context.commit("SET_RESULT", data.data.attributes);
+    },
+    LOADING_ANALYSIS: async (context, payload) => {
+      context.commit("ANALYSIS_LIST_STATUS", "LOADING");
     },
     RESET_ANALYSIS: async (context) => {
       context.commit("SET_NEW_ANALYSIS", {
