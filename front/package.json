@@ -61,7 +61,7 @@
     "jest": "^24.9.0",
     "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.18.11",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.6.0",
